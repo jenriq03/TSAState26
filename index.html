@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="google-site-verification" content="cQuXuZyyXPJ-jPHgCnZSGuB7zQSUAraa-y7eOFa6GPM"/>
+  <title>Community of El Paso Resource Hub</title>
+  <meta name="description" content="A searchable, filterable directory of community resources with highlights and a submission form." />
+  <style>
+    :root{
+      --bg:#0b1020; --surface:#121a33; --elev:#18214a;
+      --brand:#5cc8ff; --brand-2:#8af5c6; --accent:#54c2fb;
+      --text:#e8ecf4; --muted:#a9b0c2;
+      --chip:#243364; --ring: rgba(92,200,255,.35);
+      --ok:#4ade80; --warn:#f59e0b;
+      --radius:14px; --shadow:0 10px 24px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    html,body{margin:0;background:linear-gradient(180deg,#070b16 0%, #0f1530 100%);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+    a{color:var(--brand);text-decoration:none}
+    .container{width:min(1200px,92%);margin-inline:auto}
+
+    /* Skip to content (accessibility) */
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{position:fixed;left:1rem;top:1rem;width:auto;height:auto;background:#000;color:#fff;padding:.5rem .75rem;border-radius:.5rem;z-index:9999}
+
+    /* NAVBAR */
+    header.navbar{
+      position:sticky; top:0; z-index:1000;
+      backdrop-filter: saturate(120%) blur(8px);
+      background:linear-gradient(180deg,rgba(10,16,40,.9),rgba(10,16,40,.7));
+      border-bottom:1px solid #1f2a52;
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem 0}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.2px}
+    .brand-badge{
+      width:32px;height:32px;border-radius:9px;
+      background:conic-gradient(from 220deg,var(--brand),var(--brand-2));
+      box-shadow:0 0 24px rgba(92,200,255,.25) inset, 0 0 0 3px rgba(92,200,255,.15);
+    }
+    nav ul{display:flex;gap:.35rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+    nav a{display:block;padding:.55rem .8rem;border-radius:10px;color:var(--text)}
+    nav a:hover, nav a:focus{background:rgba(92,200,255,.14);outline:none}
+    .cta{background:linear-gradient(180deg,var(--brand),#3aa6dd);color:#05101b;font-weight:800}
+
+    /* HOME / HERO */
+    .hero{padding:2rem 0 1.2rem;border-bottom:1px solid #1f2a52;
+      background:radial-gradient(1100px 420px at 10% -10%, rgba(92,200,255,.18), transparent 60%)}
+    .hero h1{font-size:clamp(1.6rem,3vw,2.4rem);margin:.2rem 0 .5rem}
+    .hero p{color:var(--muted);max-width:65ch;margin:.2rem 0 1rem}
+    .searchbar{display:flex;gap:.5rem;flex-wrap:wrap}
+    .searchbar input[type="search"]{
+      flex:1 1 340px;padding:.85rem 1rem;border-radius:12px;border:1px solid #2a3569;background:#0c1433;color:var(--text)
+    }
+    .btn{padding:.75rem 1rem;border-radius:12px;border:1px solid #2a3569;background:#0c1433;color:var(--text);cursor:pointer}
+    .btn.primary{background:linear-gradient(180deg,#54c2fb,#2aa7f0);border:0;color:#05121c}
+    .btn:focus{outline:2px solid transparent;box-shadow:0 0 0 3px var(--ring)}
+
+    /* SECTIONS & CARDS (you can remove if you already have your own hub) */
+    section{padding:1.8rem 0}
+    h2{font-size:1.35rem;margin:0 0 .8rem}
+    .grid{display:grid;gap:1rem}
+    @media (min-width:760px){.grid.cols-2{grid-template-columns:repeat(2,1fr)}}
+    @media (min-width:980px){.grid.cols-3{grid-template-columns:repeat(3,1fr)}}
+    .card{background:linear-gradient(180deg, #12193a 0%, #0e1636 100%);border:1px solid #1f2a52;border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow)}
+    .badge{display:inline-block;padding:.25rem .55rem;border-radius:999px;background:#22306a;color:#cfe1ff;font-size:.75rem;margin-right:.35rem}
+    .meta{color:var(--muted);font-size:.95rem}
+    .tag{background:rgba(92,200,255,.16);border:1px solid rgba(92,200,255,.28);padding:.18rem .5rem;border-radius:999px;font-size:.75rem;margin-right:.35rem}
+
+    footer{padding:1.6rem 0;border-top:1px solid #1f2a52;color:#b8c2d9}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85rem;color:#9fb4e6}
+  </style>
+</head>
+<body>
+  <!-- Skip link for keyboard users -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- NAVIGATION BAR -->
+  <header class="navbar" role="banner">
+    <div class="container nav-inner">
+      <div class="brand" aria-label="Website brand">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>El Paso Community Resource Hub</span>
+      </div>
+      <nav role="navigation" aria-label="Primary">
+        <ul>
+          <li><a href="index.html" class='cta'>Home</a></li>
+          <li><a href="highlights.html" class='cta'>Highlights</a></li>
+          <li><a href="hub.html" class='cta'>Resources Hub</a></li>
+          <li><a href="submit.html" class='cta'>Submit</a></li>
+          <li><a href="references.html" class='cta'>References</a></li>
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HOME PAGE (HERO) -->
+  <section id="home" class="hero" role="region" aria-labelledby="hero-title">
+    <div class="container">
+      <h1 id="hero-title">Welcome to El Paso Community Resource Hub</h1>
+      <p>Find food assistance, health clinics, shelters, legal aid, youth programs, transportation, and more. Use search and filters to narrow results—then add new resources to help the community.</p>
+
+      <!-- Global search that scrolls you to the Hub -->
+      <div class="searchbar" role="search">
+        <input id="globalSearch" type="search" placeholder="Search by name or keyword (e.g., food, shelter, youth)" aria-label="Search resources" />
+        <button class="btn primary" id="searchBtn">Search</button>
+        <button class="btn" id="clearSearchBtn">Clear</button>
+      </div>
+      <p class="meta">Tip: The Resource Hub section has category and area filters for precise results.</p>
+      <p class="meta">Tip: The Highlights section has the three most popular Community Resources.</p>
+      <p class="meta">Tip: If you will like to add a community resource please click on Submit.</p>
+    </div>
+  </section>
+

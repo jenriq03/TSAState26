@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="google-site-verification" content="cQuXuZyyXPJ-jPHgCnZSGuB7zQSUAraa-y7eOFa6GPM"/>
+  <title>Resource Hub Submit</title>
+  <meta name="description" content="A searchable, filterable community resources directory." />
+  <style>
+    :root{
+      --bg:#0b1020; --surface:#121a33; --elev:#18214a;
+      --brand:#5cc8ff; --brand-2:#8af5c6; --accent:#54c2fb;
+      --text:#e8ecf4; --muted:#a9b0c2;
+      --chip:#243364; --ring: rgba(92,200,255,.35);
+      --ok:#4ade80; --warn:#f59e0b;
+      --radius:14px; --shadow:0 10px 24px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    html{scroll-behavior:smooth}
+    html,body{margin:0;background:linear-gradient(180deg,#070b16 0%, #0f1530 100%);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+    a{color:var(--brand);text-decoration:none}
+    .container{width:min(1200px,92%);margin-inline:auto}
+
+    /* Skip to content (accessibility) */
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{position:fixed;left:1rem;top:1rem;width:auto;height:auto;background:#000;color:#fff;padding:.5rem .75rem;border-radius:.5rem;z-index:9999}
+
+/* FORM */
+    form .row{display:grid;gap:.8rem}
+    @media (min-width:760px){form .row.cols-2{grid-template-columns:1fr 1fr}}
+    label{display:block;font-weight:650;margin-bottom:.25rem}
+    input[type="text"],input[type="url"],input[type="tel"],textarea,select{
+      width:100%;padding:.75rem .85rem;border-radius:10px;border:1px solid #2a3569;background:#0c1433;color:var(--text)
+    }
+    textarea{min-height:110px;resize:vertical}
+    .helper{font-size:.85rem;color:var(--muted)}
+    .toast{margin-top:.6rem;padding:.6rem .8rem;border-radius:10px;background:rgba(72,213,151,.18);border:1px solid rgba(72,213,151,.45);color:#c9ffe1;display:none}
+    .toast.show{display:block}
+
+    /* NAVBAR */
+    header.navbar{
+      position:sticky; top:0; z-index:1000;
+      backdrop-filter: saturate(120%) blur(8px);
+      background:linear-gradient(180deg,rgba(10,16,40,.9),rgba(10,16,40,.7));
+      border-bottom:1px solid #1f2a52;
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem 0}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.2px}
+    .brand-badge{
+      width:32px;height:32px;border-radius:9px;
+      background:conic-gradient(from 220deg,var(--brand),var(--brand-2));
+      box-shadow:0 0 24px rgba(92,200,255,.25) inset, 0 0 0 3px rgba(92,200,255,.15);
+    }
+    nav ul{display:flex;gap:.35rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+    nav a{display:block;padding:.55rem .8rem;border-radius:10px;color:var(--text)}
+    nav a:hover, nav a:focus{background:rgba(92,200,255,.14);outline:none}
+    .cta{background:linear-gradient(180deg,var(--brand),#3aa6dd);color:#05101b;font-weight:800}
+     /* HOME / HERO */
+    .hero{padding:2rem 0 1.2rem;border-bottom:1px solid #1f2a52;
+      background:radial-gradient(1100px 420px at 10% -10%, rgba(92,200,255,.18), transparent 60%)}
+    .hero h1{font-size:clamp(1.6rem,3vw,2.4rem);margin:.2rem 0 .5rem}
+    .hero p{color:var(--muted);max-width:65ch;margin:.2rem 0 1rem}
+    .searchbar{display:flex;gap:.5rem;flex-wrap:wrap}
+    .searchbar input[type="search"]{
+      flex:1 1 340px;padding:.85rem 1rem;border-radius:12px;border:1px solid #2a3569;background:#0c1433;color:var(--text)
+    }
+    .btn{padding:.75rem 1rem;border-radius:12px;border:1px solid #2a3569;background:#0c1433;color:var(--text);cursor:pointer}
+    .btn.primary{background:linear-gradient(180deg,#54c2fb,#2aa7f0);border:0;color:#05121c}
+    .btn:focus{outline:2px solid transparent;box-shadow:0 0 0 3px var(--ring)}
+ 
+    /* SECTIONS */
+
+    /* SECTIONS & CARDS (you can remove if you already have your own hub) */
+    section{padding:1.8rem 0}
+    h2{font-size:1.35rem;margin:0 0 .8rem}
+    .grid{display:grid;gap:1rem}
+    @media (min-width:760px){.grid.cols-2{grid-template-columns:repeat(2,1fr)}}
+    @media (min-width:980px){.grid.cols-3{grid-template-columns:repeat(3,1fr)}}
+    .card{background:linear-gradient(180deg, #12193a 0%, #0e1636 100%);border:1px solid #1f2a52;border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow)}
+    .badge{display:inline-block;padding:.25rem .55rem;border-radius:999px;background:#22306a;color:#cfe1ff;font-size:.75rem;margin-right:.35rem}
+    .meta{color:var(--muted);font-size:.95rem}
+    .tag{background:rgba(92,200,255,.16);border:1px solid rgba(92,200,255,.28);padding:.18rem .5rem;border-radius:999px;font-size:.75rem;margin-right:.35rem}
+
+    footer{padding:1.6rem 0;border-top:1px solid #1f2a52;color:#b8c2d9}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85rem;color:#9fb4e6}
+  </style>
+</head>
+
+<body>
+  <!-- Skip link for keyboard users -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- NAVIGATION BAR -->
+  <header class="navbar" role="banner">
+    <div class="container nav-inner">
+      <div class="brand" aria-label="Website brand">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>El Paso Community Resource Hub</span>
+      </div>
+      <nav role="navigation" aria-label="Primary">
+        <ul>
+          <li><a href="index.html" class='cta'>Home</a></li>
+          <li><a href="highlights.html" class='cta'>Highlights</a></li>
+          <li><a href="hub.html" class='cta'>Resources Hub</a></li>
+          <li><a href="submit.html" class='cta'>Submit</a></li>
+          <li><a href="references.html" class='cta'>References</a></li>
+        
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HOME PAGE (HERO) -->
+  <section id="home" class="hero" role="region" aria-labelledby="hero-title">
+    <div class="container">
+      <h1 id="hero-title">Form</h1>
+
+
+   
+  </section>
+
+<!-- SUBMIT FORM -->
+    <section id="submit" aria-labelledby="h2-submit">
+      <h2 id="h2-submit">Submit a New Resource</h2>
+      <p class="helper">Submissions appear immediately and are saved to your browser (marked “Community submitted”).</p>
+
+      <form id="resourceForm" novalidate class="card">
+        <div class="row cols-2">
+          <div>
+            <label for="rName">Resource / Organization name *</label>
+            <input id="rName" type="text" required placeholder="e.g., Sun City Community Clinic" />
+          </div>
+          <div>
+            <label for="rCategory">Category *</label>
+            <select id="rCategory" required>
+              <option value="">Select a category</option>
+              <option>Food</option><option>Health</option><option>Housing</option>
+              <option>Legal</option><option>Youth</option><option>Education</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row cols-2">
+          <div>
+            <label for="rArea">Area</label>
+            <input id="rArea" type="text" placeholder="e.g., Central, East, West" />
+          </div>
+          <div>
+            <label for="rAudience">Audience</label>
+            <input id="rAudience" type="text" placeholder="e.g., All, Families, Youth" />
+          </div>
+        </div>
+
+        <div class="row cols-2">
+          <div>
+            <label for="rPhone">Phone</label>
+            <input id="rPhone" type="tel" placeholder="(555) 555‑1234" />
+          </div>
+          <div>
+            <label for="rURL">Website</label>
+            <input id="rURL" type="url" placeholder="https://example.org" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="rAddress">Address</label>
+            <input id="rAddress" type="text" placeholder="123 Main St, Suite 100" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="rDesc">Short description</label>
+            <textarea id="rDesc" placeholder="Briefly describe the service and who it helps"></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="rTags">Tags <span class="helper">(comma‑separated, e.g., free, bilingual, walk-in)</span></label>
+            <input id="rTags" type="text" placeholder="free, bilingual, walk-in" />
+          </div>
+        </div>
+
+        <div class="row">
+          <button class="btn primary" type="submit">Add Resource</button>
+          <button class="btn ghost" type="reset">Reset</button>
+        </div>
+
+        <div id="formToast" class="toast" role="status" aria-live="polite"></div>
+      </form>
+    </section>
