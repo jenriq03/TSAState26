@@ -149,6 +149,7 @@ async function runSearch() {
     `).join('');
 }
 */
+/* second comment might need to remove
 const { MongoClient } = require('mongodb');
 const uri = "mongodb+srv:// jenriq03_db_user:TSAEldo26@tsa.gwc6rkk.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri);
@@ -162,3 +163,5 @@ async function run() {
   }
 }
 run().catch(console.dir);
+
+*/
