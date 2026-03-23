@@ -3,6 +3,12 @@
     "public": true,
     "cleanUrls": true,
     "trailingSlash": false,
+    "dependencies": {
+      "next": "latest",
+      "react": "latest",
+      "react-dom": "latest"
+    }
+
     "redirects": [
       {
         "source": "/old-path",
