@@ -119,17 +119,17 @@
         <input id="textFilter" type="text" placeholder="Type to filter…" style="width:100%;margin-top:.4rem;padding:.6rem .8rem;border-radius:10px;border:1px solid #2a3569;background:#0c1433;color:var(--text)" />
         <div style="display:flex;gap:.5rem;margin-top:.6rem;flex-wrap:wrap">
           <select id="catFilter" aria-label="Filter by category">
-            <option value="">All categories</option>
+            <option value="">All tags</option>
             <option>Food</option><option>Health</option><option>Housing</option>
             <option>Legal</option><option>Youth</option><option>Education</option>
             <option>Veteran</option>
           </select>
-          <select id="areaFilter" aria-label="Filter by area">
+          <select hidden id="areaFilter" aria-label="Filter by area">
             <option value="">All areas</option>
             <option>Central</option><option>East</option><option>West</option>
             <option>North</option><option>South</option>
           </select>
-          <select id="sortBy" aria-label="Sort">
+          <select hidden id="sortBy" aria-label="Sort">
             <option value="name">Sort: Name (A–Z)</option>
             <option value="category">Sort: Category</option>
             <option value="area">Sort: Area</option>

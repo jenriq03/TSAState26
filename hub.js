@@ -1,21 +1,91 @@
 
-cardList = document.getElementById("cardWrap")
-/*
-<article class="card" role="listitem">
-    <h3>Compass Legal Aid <span class="badge">Legal</span></h3>
-    <p class="meta">Free consultations for housing, benefits, and rights.</p>
-</article>
-*/
+const TagList = {
+    Food: "Food",
+    Health: "Health",
+    Housing: "Housing",
+    Legal: "Legal",
+    Youth: "Youth",
+    Education: "Education",
+    Veteran: "Veteran",
+    Crisis: "Crisis",
+}
 
+itemList = [
+    {
+        Title: "Title-1",
+        Description: "desc-1",
+        Tag: "Veteran",
+        Phone: "(915) 123-456"
+    },
+    {
+        Title: "Title-2",
+        Description: "desc-2",
+        Tag: "Housing",
+        Phone: "(915) 654-321"
+    },
+    {
+        Title: "Emergence Health Network Crisis Line",
+        Description: "For mental health emergencies and substance use support.",
+        Tag: "Crisis",
+        Phone: "(915) 779-1800"
+    },
+    {
+        Title: "Opportunity Center for the Homeless",
+        Description: "Offers emergency shelter, meals, and laundry services.",
+        Tag: TagList.Housing,
+        Phone: "(915) 577-0069"
+    },
+    {
+        Title: "El Pasoans Fighting Hunger Food Bank",
+        Description: "They operate mobile pantries and home delivery for seniors/homebound individuals.",
+        Tag: TagList.Food,
+        Phone: "(915) 298-0353"
+    },
+    {
+        Title: "City of El Paso Public Health",
+        Description: "Offers dental clinics, immunizations, and WIC services (food assistance for women and children).",
+        Tag: TagList.Health,
+        Phone: "(915) 212-0200"
+    },
+    {
+        Title: "County Veterans Assistance Office",
+        Description: "Helps veterans navigate earned benefits and entitlements.",
+        Tag: TagList.Veteran,
+        Phone: "(915) 273-3454"
+    },
+    {
+        Title: "Youth resource example",
+        Description: "Helping kids throughout their life.",
+        Tag: TagList.Youth,
+        Phone: "(915) you-tube"
+    },
+    {
+        Title: "Education resource example",
+        Description: "Need help studying, give us a call!",
+        Tag: TagList.Education,
+        Phone: "(915) edu-1234"
+    },
+    {
+        Title: "Legal resouce example",
+        Description: "We help you win any case in three minutes",
+        Tag: TagList.Legal,
+        Phone: "(915) 136-4100"
+    }
+]
+
+cardList = document.getElementById("cardWrap")
+tagFilter = document.getElementById("catFilter")
+textFilter = document.getElementById("textFilter")
+clearFilterBtn = document.getElementById("clearFilters")
 class cardClass{
-    constructor(Title, Description, Category, Phone) {
+    constructor(Title, Description, Tag, Phone) {
         this.Title = Title
         this.Description = Description
-        this.Category = Category
+        this.Tag = Tag
         this.Phone = Phone
         this.HTMLNodes = null
     }
-    CreateNode() {
+    createNode() {
         //creates article
         const articleNode = document.createElement("article")
         articleNode.className="card"
@@ -27,11 +97,11 @@ class cardClass{
         headerText.textContent = this.Title + " "
         articleNode.appendChild(headerText)
 
-        //creates category badge
-        const categoryText = document.createElement("span")
-        categoryText.className="badge"
-        categoryText.textContent = this.Category
-        headerText.appendChild(categoryText)
+        //creates Tag badge
+        const TagText = document.createElement("span")
+        TagText.className="badge"
+        TagText.textContent = this.Tag
+        headerText.appendChild(TagText)
 
         //creates phone badge
         const phoneText = document.createElement("span")
@@ -49,71 +119,100 @@ class cardClass{
         this.HTMLNodes={
             articleNode:articleNode,
             headerText:headerText,
-            categoryText:categoryText,
+            TagText:TagText,
             phoneText:phoneText,
             descriptionText:descriptionText,
         }
     }
 }
 
-const categoryList = {
-    Food: "Food",
-    Health: "Health",
-    Housing: "Housing",
-    Legal: "Legal",
-    Youth: "Youth",
-    Education: "Education",
-    Veteran: "Veteran",
-    Crisis: "Crisis",
+
+
+allCards = []
+
+function clearItems() {
+    cardList.innerHTML = ""
+    allCards=[]
 }
 
-CrisisLine = new cardClass(
-    "Emergence Health Network Crisis Line",
-    "For mental health emergencies and substance use support.",
-    categoryList.Crisis,
-    "(915) 779-1800"
+function loadItems(items, max, offset, filters) {
+
+    requiredTitle = filters.Title
+    requiredTag = filters.Tag
+    requiredPhone = filters.Phone
+    requiredDescription = filters.Description
+    generalSearch = filters.General
+
+    for (let index = 0; index < items.length; index++) {
+
+        const element = items[index+offset];
+
+        // check max and last item
+        if (allCards.length>max || items[index+offset]==null) {
+            break
+        }
+
+        //checks for filters
+
+        if (filters!={}) {
+            if (requiredTitle && !element.Title.toLowerCase().includes(requiredTitle.toLowerCase())) {
+                continue
+            }
+            if (requiredTag && !element.Tag.toLowerCase().includes(requiredTag.toLowerCase())) {
+                continue
+            }
+            if (requiredPhone && !element.Phone.toLowerCase().includes(requiredPhone.toLowerCase())) {
+                continue
+            }
+            if (requiredDescription && !element.Description.toLowerCase().includes(requiredDescription.toLowerCase())) {
+                continue
+            }
+            if (generalSearch) {
+                if (
+                    !element.Title.toLowerCase().includes(generalSearch.toLowerCase()) && 
+                    !element.Description.toLowerCase().includes(generalSearch.toLowerCase()))
+                {
+                    console.log("skip")
+                    continue
+                }
+            }
+        }
+
+        newCard = new cardClass(
+            element.Title,
+            element.Description,
+            element.Tag,
+            element.Phone
+        )
+        newCard.createNode()
+        allCards.push(newCard)
+    }
+}
+
+function refreshItems(items, pageNum, perPage, filters) {
+    clearItems()
+    loadItems(items,perPage-1,pageNum*perPage, filters)
+}
+
+refreshItems(
+    itemList,
+    0,
+    18,
+    {}
 )
 
-ElPasoHelps = new cardClass(
-    "El Paso Helps",
-    'A centralized hub that connects you with a "Resilience Navigator" for housing and basic needs.',
-    categoryList.Housing,
-    "(915) 400-7401"
-)
+function quickUpdate() {
+    console.log(tagFilter.value)
+    refreshItems(
+        itemList,
+        0,
+        18,
+        {
+            General: textFilter.value,
+            Tag: tagFilter.value
+        }
+    )
+}
 
-OpportunityCenter = new cardClass(
-    "Opportunity Center for the Homeless",
-    "Offers emergency shelter, meals, and laundry services.",
-    categoryList.Housing,
-    "(915) 577-0069"
-)
-
-FoodBank = new cardClass(
-    "El Pasoans Fighting Hunger Food Bank",
-    "They operate mobile pantries and home delivery for seniors/homebound individuals.",
-    categoryList.Food,
-    "(915) 298-0353"
-)
-
-ElPasoHealth = new cardClass(
-    "City of El Paso Public Health",
-    "Offers dental clinics, immunizations, and WIC services (food assistance for women and children).",
-    categoryList.Health,
-    "(915) 212-0200"
-)
-
-VeteranAssistance = new cardClass(
-    "County Veterans Assistance Office",
-    "Helps veterans navigate earned benefits and entitlements.",
-    categoryList.Veteran,
-    "(915) 273-3454"
-)
-
-
-
-CrisisLine.CreateNode()
-ElPasoHelps.CreateNode()
-OpportunityCenter.CreateNode()
-FoodBank.CreateNode()
-ElPasoHealth.CreateNode()
-VeteranAssistance.CreateNode()
+textFilter.addEventListener("input", quickUpdate)
+tagFilter.addEventListener("input", quickUpdate)
