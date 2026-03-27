@@ -12,16 +12,16 @@ const TagList = {
 
 itemList = [
     {
-        Title: "Title-1",
-        Description: "desc-1",
+        Title: "El Paso VA Medical Center",
+        Description: "The main outpatient hub for primary care and mental health",
         Tag: "Veteran",
-        Phone: "(915) 123-456"
+        Phone: "(915) 564-6100"
     },
     {
-        Title: "Title-2",
-        Description: "desc-2",
+        Title: "Project Bravo",
+        Description: "Low Income and Energy Assistance Program",
         Tag: "Housing",
-        Phone: "(915) 654-321"
+        Phone: "(915) 562-4100"
     },
     {
         Title: "Emergence Health Network Crisis Line",
