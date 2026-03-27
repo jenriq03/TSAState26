@@ -128,3 +128,10 @@ function quickUpdate() {
 textFilter.addEventListener("input", quickUpdate)
 CategoryFilter.addEventListener("input", quickUpdate)
 sortBy.addEventListener("input", quickUpdate)
+
+clearFilterBtn.addEventListener("click", function(params) {
+    textFilter.value=""
+    CategoryFilter.value=""
+    sortBy.value="name"
+    quickUpdate()
+})
