@@ -76,6 +76,7 @@ itemList = [
 cardList = document.getElementById("cardWrap")
 tagFilter = document.getElementById("catFilter")
 textFilter = document.getElementById("textFilter")
+sortBy = document.getElementById("sortBy")
 clearFilterBtn = document.getElementById("clearFilters")
 class cardClass{
     constructor(Title, Description, Tag, Phone) {
@@ -126,8 +127,6 @@ class cardClass{
     }
 }
 
-
-
 allCards = []
 
 function clearItems() {
@@ -142,6 +141,29 @@ function loadItems(items, max, offset, filters) {
     requiredPhone = filters.Phone
     requiredDescription = filters.Description
     generalSearch = filters.General
+
+    switch (filters.Sort) {
+        case "name":
+            items.sort(function(a, b){
+                let x = a.Title.toLowerCase();
+                let y = b.Title.toLowerCase();
+                if (x < y) {return -1;}
+                if (x > y) {return 1;}
+                return 0;
+                });
+            break;
+        case "category":
+            items.sort(function(a, b){
+                let x = a.Tag.toLowerCase();
+                let y = b.Tag.toLowerCase();
+                if (x < y) {return -1;}
+                if (x > y) {return 1;}
+                return 0;
+                });
+            break;
+        default:
+            break;
+    }
 
     for (let index = 0; index < items.length; index++) {
 
@@ -198,7 +220,9 @@ refreshItems(
     itemList,
     0,
     18,
-    {}
+    {
+        Sort: "name"
+    }
 )
 
 function quickUpdate() {
@@ -209,10 +233,12 @@ function quickUpdate() {
         18,
         {
             General: textFilter.value,
-            Tag: tagFilter.value
+            Tag: tagFilter.value,
+            Sort: sortBy.value
         }
     )
 }
 
 textFilter.addEventListener("input", quickUpdate)
 tagFilter.addEventListener("input", quickUpdate)
+sortBy.addEventListener("input", quickUpdate)
