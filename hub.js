@@ -54,20 +54,20 @@ itemList = [
         Phone: "(915) 273-3454"
     },
     {
-        Title: "Youth resource example",
-        Description: "Helping kids throughout their life.",
+        Title: "Aliviane",
+        Description: "Promote wellness for youg people between ages 13 and 21.",
         Tag: TagList.Youth,
-        Phone: "(915) you-tube"
+        Phone: "(915) 782-4023"
     },
     {
-        Title: "Education resource example",
-        Description: "Need help studying, give us a call!",
+        Title: "El Paso Community Foundation",
+        Description: "Classroom Fund for teachers in the Community",
         Tag: TagList.Education,
-        Phone: "(915) edu-1234"
+        Phone: "(915) 533-4020"
     },
     {
-        Title: "Legal resouce example",
-        Description: "We help you win any case in three minutes",
+        Title: "El Paso County Bar Association Lawyer Referral Service",
+        Description: "Connects public with qualified lawyers.",
         Tag: TagList.Legal,
         Phone: "(915) 136-4100"
     }
