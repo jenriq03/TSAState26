@@ -3,13 +3,13 @@ import { itemList } from "./simulatedDB.js"
 
 import { cardClass } from "./card.js"
 
-cardList = document.getElementById("cardWrap")
-CategoryFilter = document.getElementById("catFilter")
-textFilter = document.getElementById("textFilter")
-sortBy = document.getElementById("sortBy")
-clearFilterBtn = document.getElementById("clearFilters")
+const cardList = document.getElementById("cardWrap")
+const CategoryFilter = document.getElementById("catFilter")
+const textFilter = document.getElementById("textFilter")
+const sortBy = document.getElementById("sortBy")
+const clearFilterBtn = document.getElementById("clearFilters")
 
-allCards = []
+const allCards = []
 
 function clearItems() {
     cardList.innerHTML = ""
@@ -18,11 +18,11 @@ function clearItems() {
 
 function loadItems(items, max, offset, filters) {
 
-    requiredTitle = filters.Title
-    requiredCategory = filters.Category
-    requiredPhone = filters.Phone
-    requiredDescription = filters.Description
-    generalSearch = filters.General
+    const requiredTitle = filters.Title
+    const requiredCategory = filters.Category
+    const requiredPhone = filters.Phone
+    const requiredDescription = filters.Description
+    const generalSearch = filters.General
 
     switch (filters.Sort) {
         case "name":
@@ -73,28 +73,19 @@ function loadItems(items, max, offset, filters) {
                 continue
             }
             if (generalSearch) {
-                console.log(element.Title);
-                    console.log(!element.Title.toLowerCase().includes(generalSearch.toLowerCase()))
-                    console.log(!element.Description.toLowerCase().includes(generalSearch.toLowerCase()));
-                    console.log(
-                        element.Tags!=undefined,
-                        !(element.Tags || "hello").toLowerCase().includes(generalSearch.toLowerCase())
-                    );
                 if (
                     !element.Title.toLowerCase().includes(generalSearch.toLowerCase()) && 
                     !element.Description.toLowerCase().includes(generalSearch.toLowerCase()) &&
-                    !(element.Tags || "hello").toLowerCase().includes(generalSearch.toLowerCase())
+                    !(element.Tags || "").toLowerCase().includes(generalSearch.toLowerCase())
                 )
                 {
                     console.log("skip")
-                    
-                    
                     continue
                 }
             }
         }
 
-        newCard = new cardClass(
+        const newCard = new cardClass(
             element.Title,
             element.Description,
             element.Category,

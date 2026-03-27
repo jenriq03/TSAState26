@@ -3,14 +3,14 @@ import { itemList } from "./simulatedDB.js";
 import { cardClass } from "./card.js";
 
 
-cardList = document.getElementById("cardWrap")
+const cardList = document.getElementById("cardWrap")
 
-cardInfoA = itemList[0]
-cardInfoB = itemList[1]
-cardInfoC = itemList[2]
+const cardInfoA = itemList[0]
+const cardInfoB = itemList[1]
+const cardInfoC = itemList[2]
 
 function ezCreate(cardInfo) {
-    card = new cardClass(
+    const card = new cardClass(
         cardInfo.Title,
         cardInfo.Description,
         cardInfo.Category,
