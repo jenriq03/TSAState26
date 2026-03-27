@@ -14,7 +14,7 @@ function ezCreate(cardInfo) {
         cardInfo.Title,
         cardInfo.Description,
         cardInfo.Category,
-        cardInfo.Tag,
+        cardInfo.Tags,
         cardInfo.Phone
     )
     card.createNode(cardList)

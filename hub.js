@@ -9,7 +9,7 @@ const textFilter = document.getElementById("textFilter")
 const sortBy = document.getElementById("sortBy")
 const clearFilterBtn = document.getElementById("clearFilters")
 
-const allCards = []
+let allCards = []
 
 function clearItems() {
     cardList.innerHTML = ""
