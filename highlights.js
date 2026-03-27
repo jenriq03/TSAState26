@@ -1,6 +1,6 @@
-import { itemList } from "./simulatedDB";
+import { itemList } from "./simulatedDB.js";
 
-import { cardClass } from "./card";
+import { cardClass } from "./card.js";
 
 
 cardList = document.getElementById("cardWrap")
