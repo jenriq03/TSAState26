@@ -1,4 +1,4 @@
-class cardClass{
+export class cardClass{
     constructor(Title, Description, Category, Tags, Phone) {
         this.Title = Title
         this.Description = Description
