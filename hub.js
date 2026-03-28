@@ -3,17 +3,26 @@ import { itemList } from "./simulatedDB.js"
 
 import { cardClass } from "./card.js"
 
+
 const cardList = document.getElementById("cardWrap")
 const CategoryFilter = document.getElementById("catFilter")
 const textFilter = document.getElementById("textFilter")
 const sortBy = document.getElementById("sortBy")
 const clearFilterBtn = document.getElementById("clearFilters")
 
+const losePageBtn = document.getElementById("losePage")
+const gainPageBtn = document.getElementById("gainPage")
+const pageNumLabel = document.getElementById("pageNumLabel")
+
+const cardsPerPage = 15
+
 let allCards = []
+let possibleCards = []
 
 function clearItems() {
     cardList.innerHTML = ""
     allCards=[]
+    possibleCards=[]
 }
 
 function loadItems(items, max, offset, filters) {
@@ -49,12 +58,12 @@ function loadItems(items, max, offset, filters) {
 
     for (let index = 0; index < items.length; index++) {
 
-        const element = items[index+offset];
-
-        // check max and last item
-        if (allCards.length>max || items[index+offset]==null) {
+        //check if last item
+        if (items[index]==null) {
             break
         }
+
+        const element = items[index];
 
         //checks for filters
 
@@ -79,10 +88,17 @@ function loadItems(items, max, offset, filters) {
                     !(element.Tags || "").toLowerCase().includes(generalSearch.toLowerCase())
                 )
                 {
-                    console.log("skip")
                     continue
                 }
             }
+        }
+
+        possibleCards.push(element)
+
+        // check max or not at offset
+        console.log(index,offset,element.Title)
+        if (allCards.length>max || index<offset) {
+            continue
         }
 
         const newCard = new cardClass(
@@ -97,26 +113,19 @@ function loadItems(items, max, offset, filters) {
     }
 }
 
-function refreshItems(items, pageNum, perPage, filters) {
+function refreshItems(items, pageNum, filters) {
     clearItems()
-    loadItems(items,perPage-1,pageNum*perPage, filters)
+    loadItems(items,cardsPerPage-1,pageNum*cardsPerPage, filters)
+    console.log(possibleCards,cardsPerPage,Math.ceil(possibleCards.length/cardsPerPage))
+    maxPages = Math.ceil(possibleCards.length/cardsPerPage)-1
+    currentPage=Math.min(maxPages,currentPage)
+    pageNumLabel.textContent="Page " + String(currentPage+1) + "/" + String(maxPages+1)
 }
 
-refreshItems(
-    itemList,
-    0,
-    18,
-    {
-        Sort: "name"
-    }
-)
-
 function quickUpdate() {
-    console.log(CategoryFilter.value)
     refreshItems(
         itemList,
-        0,
-        18,
+        currentPage,
         {
             General: textFilter.value,
             Category: CategoryFilter.value,
@@ -124,6 +133,11 @@ function quickUpdate() {
         }
     )
 }
+
+let currentPage = 0
+let maxPages = 0
+
+quickUpdate()
 
 textFilter.addEventListener("input", quickUpdate)
 CategoryFilter.addEventListener("input", quickUpdate)
@@ -133,5 +147,14 @@ clearFilterBtn.addEventListener("click", function(params) {
     textFilter.value=""
     CategoryFilter.value=""
     sortBy.value="name"
+    quickUpdate()
+})
+
+gainPageBtn.addEventListener("click", function() {
+    currentPage=Math.min(maxPages,currentPage+1)
+    quickUpdate()
+})
+losePageBtn.addEventListener("click", function(params) {
+    currentPage=Math.max(0,currentPage-1)
     quickUpdate()
 })
