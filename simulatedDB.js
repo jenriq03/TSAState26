@@ -29,7 +29,7 @@ export const itemList = [
     {
         Title: "Emergence Health Network Crisis Line",
         Description: "For mental health emergencies and substance use support.",
-        Category: "Crisis",
+        Category: "Health",
         Phone: "(915) 779-1800",
         Tags: "Mmental health,Support"
     },
@@ -74,6 +74,41 @@ export const itemList = [
         Category: "Education",
         Phone: "(915) 533-4020",
         Tags: "Financial"
+    },
+    {
+        Title: "211 Texas",
+        Description: "Social service help food rent ",
+        Category: "Health",
+        Phone: "Dial 211",
+        Tags: "Social"
+    },
+    {
+        Title: "Center Against Sexual and Family Violence",
+        Description: "24 hour helpline for domestic violence prevention",
+        Category: "Legal",
+        Phone: "(915) 593-7300",
+        Tags: "Domestic"
+    },
+    {
+        Title: "Amistad",
+        Description: "Provides rental, utlity and mortgage assistance",
+        Category: "Housing",
+        Phone: "(915) 298-1107",
+        Tags: "Financial"
+    },
+    {
+        Title: "Kelly Center for Hunger Relief",
+        Description: "Provides daily breakfast, lunch and dinner",
+        Category: "Food",
+        Phone: "(915) 261-7499",
+        Tags: "Hunger"
+    },
+    {
+        Title: "Opportunity Center for the Homeless",
+        Description: "Offers emergency shelter, meals and laundry services",
+        Category: "Housing",
+        Phone: "(915) 577-0069",
+        Tags: "Homeless"
     },
     {
         Title: "El Paso County Bar Association Lawyer Referral Service",
